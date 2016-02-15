@@ -54,9 +54,8 @@ public:
 		bool operator()(Node * n1, Node * n2) {
 			tuple<string, int,int,int,int> p1 =n1->data();
 			tuple<string, int, int, int, int> p2 = n2->data(); 
-			int p1fn = get<1>(p1) + get<2>(p1);
-			int p2fn = get<1>(p2) + get<2>(p2);
-			return p1fn > p2fn;
+			
+			return (get<1>(p1) +get<2>(p1)) > (get<1>(p2) +get<2>(p2));
 		}
 	};
 
@@ -68,6 +67,7 @@ public:
     void removeArc( int from, int to );
     Arc* getArc( int from, int to );        
     void clearMarks();
+	void reset();
     void depthFirst( Node* pNode, void (*pProcess)(Node*) );
     void breadthFirst( Node* pNode, void (*pProcess)(Node*) );
 	void adaptedBreadthFirst( Node* pCurrent, Node* pGoal );
@@ -265,7 +265,14 @@ void Graph<NodeType, ArcType>::clearMarks() {
      }
 }
 
-
+template<class NodeType, class ArcType>
+void Graph<NodeType, ArcType>::reset() {
+	for (int i = 0; i < m_maxNodes; i++)
+	{
+		nodeArray()[i]->setData(NodeType(get<0>(nodeArray()[i]->data()), 999999, 999999, get<3>(nodeArray()[i]->data()), get<4>(nodeArray()[i]->data())));
+	}
+	
+}
 // ----------------------------------------------------------------
 //  Name:           depthFirst
 //  Description:    Performs a depth-first traversal on the specified 
@@ -442,29 +449,70 @@ void Graph<NodeType, ArcType>::ucs(Node* pStart, Node* pDest, void(*pVisitFunc)(
 	path.push_back(pStart);
 }
 template<class NodeType, class ArcType>
-void Graph<NodeType, ArcType>::aStar(Node* pStart, Node* pDest, void(*pProcess)(Node*), std::vector<Node *>& path){	priority_queue<Node *, vector<Node*>, NodeSearchCostComparer> pq;	pStart->setData(tuple<string, int, int, int, int>(get<0>(pStart->data()), get<1>(pStart->data()),  0, get<3>(pStart->data()), get<4>(pStart->data())));	int fn = 999999;
+void Graph<NodeType, ArcType>::aStar(Node* pStart, Node* pDest, void(*pProcess)(Node*), std::vector<Node *>& path)
+{
+	priority_queue<Node *, vector<Node*>, NodeSearchCostComparer> pq;
+	pStart->setData(tuple<string, int, int, int, int>(get<0>(pStart->data()), 0,  0, get<3>(pStart->data()), get<4>(pStart->data())));
+
+
+	for (int i = 0; i < 30; i++)//Calcukate HN for all nodes
+	{
+		float goalXpos = get<3>(pDest->data());
+		float goalYpos = get<4>(pDest->data());
 	
-	//list<Arc>::const_iterator iter = nodeArray
-	////list<Arc>::const_iterator endIter = nodeArray.end();
-	//for (; iter != endIter; iter++)
-	//{	//}	pq.push(pStart);	pStart->setMarked(true);
-	//	While the queue is not empty AND pq.top() != g
-	while (pq.size() != 0 && pq.top() != pDest) 	{		list<Arc>::const_iterator iter = pq.top()->arcList().begin();
+		float currXpos = get<3>(nodeArray()[i]->data());
+		float currYpos = get<4>(nodeArray()[i]->data());
+
+		int distance = sqrt((goalXpos - currXpos)*(goalXpos - currXpos) + (goalYpos - currYpos)*(goalYpos - currYpos));
+		nodeArray()[i]->setData(NodeType(get<0>(nodeArray()[i]->data()), distance, get<2>(nodeArray()[i]->data()), get<3>(nodeArray()[i]->data()), get<4>(nodeArray()[i]->data())));
+
+	}
+
+	pq.push(pStart);
+
+	pStart->setMarked(true);
+	//While the queue is not empty AND pq.top() != g
+	//while (pq.size() != 0 && pq.top() != pDest)
+
+	while (pq.size() != 0 && pq.top() != pDest)
+	{
+		list<Arc>::const_iterator iter = pq.top()->arcList().begin();
 		list<Arc>::const_iterator endIter = pq.top()->arcList().end();
 
 		for (; iter != endIter; iter++)
-		{			if ((*iter).node() != pq.top()->previous())
-			{				int distC = get<1>((*iter).node()->data()) + get<2>((*iter).node()->data());				if (distC < fn)				{					fn = distC;					(*iter).node()->setPrevious(pq.top());				}				if ((*iter).node()->marked() == false)
+		{
+			if ((*iter).node() != pq.top()->previous())
+			{
+				int Hn = get<1>(pq.top()->data());//get hn from top of queue
+				int Gn = get<2>(pq.top()->data()) + (*iter).weight();//get Gn from top of queue
+				int FN = Gn + Hn;
+				int childFn = get<1>((*iter).node()->data()) + get<2>((*iter).node()->data());
+			
+				if (FN < childFn)
+				{
+					(*iter).node()->setPrevious(pq.top());
+					(*iter).node()->setData(NodeType(get<0>((*iter).node()->data()), get<1>((*iter).node()->data()), Gn, get<3>((*iter).node()->data()), get<4>((*iter).node()->data())));
+				}
+				if ((*iter).node()->marked() == false)
 				{
 					//push the node
 					pq.push((*iter).node());
 					(*iter).node()->setMarked(true);
-
-				}			}		}           pq.pop();	}	for (Node *i = pDest; i->previous() != 0; i = i->previous())
+				}
+			}
+		}
+		pq.pop();
+	}
+ 
+	
+	for (Node *i = pDest; i->previous() != 0; i = i->previous())
 	{
 		path.push_back(i);
 	}
-	path.push_back(pStart);}
+      path.push_back(pStart);
+
+}
+
 
 
 #include "GraphNode.h"
