@@ -36,6 +36,7 @@ private:
 	std::string m_name;
 	sf::CircleShape circle;
 	bool path = false;
+	bool attemptedPath = false;
 
 };
 

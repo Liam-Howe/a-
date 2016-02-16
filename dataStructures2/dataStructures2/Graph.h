@@ -267,10 +267,15 @@ void Graph<NodeType, ArcType>::clearMarks() {
 
 template<class NodeType, class ArcType>
 void Graph<NodeType, ArcType>::reset() {
-	for (int i = 0; i < m_maxNodes; i++)
-	{
-		nodeArray()[i]->setData(NodeType(get<0>(nodeArray()[i]->data()), 999999, 999999, get<3>(nodeArray()[i]->data()), get<4>(nodeArray()[i]->data())));
+
+	int index;
+	for (index = 0; index < m_maxNodes; index++) {
+		if (m_pNodes[index] != 0) {
+			m_pNodes[index]->setData(NodeType(get<0>(m_pNodes[index]->data()), 9999, 9999, get<3>(m_pNodes[index]->data()), get<4>(m_pNodes[index]->data())));
+			m_pNodes[index]->setPrevious(NULL);
+		}
 	}
+
 	
 }
 // ----------------------------------------------------------------
@@ -451,22 +456,21 @@ void Graph<NodeType, ArcType>::ucs(Node* pStart, Node* pDest, void(*pVisitFunc)(
 template<class NodeType, class ArcType>
 void Graph<NodeType, ArcType>::aStar(Node* pStart, Node* pDest, void(*pProcess)(Node*), std::vector<Node *>& path)
 {
+
 	priority_queue<Node *, vector<Node*>, NodeSearchCostComparer> pq;
-	pStart->setData(tuple<string, int, int, int, int>(get<0>(pStart->data()), 0,  0, get<3>(pStart->data()), get<4>(pStart->data())));
 
-
-	for (int i = 0; i < 30; i++)//Calcukate HN for all nodes
+	for (int i = 0; i < m_maxNodes; i++)//Calcukate HN for all nodes
 	{
 		float goalXpos = get<3>(pDest->data());
 		float goalYpos = get<4>(pDest->data());
-	
 		float currXpos = get<3>(nodeArray()[i]->data());
 		float currYpos = get<4>(nodeArray()[i]->data());
-
-		int distance = sqrt((goalXpos - currXpos)*(goalXpos - currXpos) + (goalYpos - currYpos)*(goalYpos - currYpos));
-		nodeArray()[i]->setData(NodeType(get<0>(nodeArray()[i]->data()), distance, get<2>(nodeArray()[i]->data()), get<3>(nodeArray()[i]->data()), get<4>(nodeArray()[i]->data())));
-
+		float distance = sqrt((goalXpos - currXpos)*(goalXpos - currXpos) + (goalYpos - currYpos)*(goalYpos - currYpos));
+		nodeArray()[i]->setData(tuple<string, float, float, float, float>(get<0>(nodeArray()[i]->data()), distance, get<2>(nodeArray()[i]->data()), get<3>(nodeArray()[i]->data()), get<4>(nodeArray()[i]->data())));
+		nodeArray()[i]->setMarked(false);
 	}
+
+	pStart->setData(tuple<string, float, float, float, float>(get<0>(pStart->data()), get<1>(pStart->data()), 0, get<3>(pStart->data()), get<4>(pStart->data())));
 
 	pq.push(pStart);
 
@@ -481,7 +485,7 @@ void Graph<NodeType, ArcType>::aStar(Node* pStart, Node* pDest, void(*pProcess)(
 
 		for (; iter != endIter; iter++)
 		{
-			if ((*iter).node() != pq.top()->previous())
+			if ((*iter).node() != pq.top()->previous() )
 			{
 				int Hn = get<1>(pq.top()->data());//get hn from top of queue
 				int Gn = get<2>(pq.top()->data()) + (*iter).weight();//get Gn from top of queue
@@ -491,7 +495,7 @@ void Graph<NodeType, ArcType>::aStar(Node* pStart, Node* pDest, void(*pProcess)(
 				if (FN < childFn)
 				{
 					(*iter).node()->setPrevious(pq.top());
-					(*iter).node()->setData(NodeType(get<0>((*iter).node()->data()), get<1>((*iter).node()->data()), Gn, get<3>((*iter).node()->data()), get<4>((*iter).node()->data())));
+					(*iter).node()->setData(tuple<string, float, float, float, float>(get<0>((*iter).node()->data()), get<1>((*iter).node()->data()), Gn, get<3>((*iter).node()->data()), get<4>((*iter).node()->data())));
 				}
 				if ((*iter).node()->marked() == false)
 				{
@@ -504,7 +508,8 @@ void Graph<NodeType, ArcType>::aStar(Node* pStart, Node* pDest, void(*pProcess)(
 		pq.pop();
 	}
  
-	
+
+
 	for (Node *i = pDest; i->previous() != 0; i = i->previous())
 	{
 		path.push_back(i);

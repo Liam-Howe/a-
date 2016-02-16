@@ -40,6 +40,10 @@ void Circle::Update()
 	{
 		circle.setFillColor(sf::Color::Blue);
 	}
+	else if (path == false && attemptedPath == true)
+	{
+		circle.setFillColor(sf::Color::White);
+	}
 
 }
 
@@ -60,6 +64,7 @@ void Circle::setPath(bool boolean)
 
 	path = boolean;
 }
+
 sf::CircleShape Circle::getCircle()
 {
 
