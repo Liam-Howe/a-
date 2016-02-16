@@ -56,6 +56,7 @@ int main(int argc, char *argv[])
 	vector<sf::Text>HNS;
 	vector<sf::Text>FNS;
 	std::vector<Node*> path;
+	std::vector<Node*> attemptedpath;
 	bool startSelected = false;
 	bool goalSelected = false;
 	vector<sf::Text> NodesNames;
@@ -242,6 +243,7 @@ int main(int argc, char *argv[])
 				HNS.clear();
 				FNS.clear();
 				path.clear();
+				
 				mygraph.clearMarks();
 				mygraph.reset();
 				goal = 0;
@@ -254,6 +256,7 @@ int main(int argc, char *argv[])
 			
 					NodesCircles[i].setGoal(false);
 					NodesCircles[i].setPath(false);
+					NodesCircles[i].setAttemptedPath(false);
 					NodesCircles[i].setStart(false);
 				}
 				
@@ -269,7 +272,7 @@ int main(int argc, char *argv[])
 			cout << '\n' << "A *: " << endl;
 
 			path.clear();
-			mygraph.aStar(mygraph.nodeArray()[start], mygraph.nodeArray()[goal], visit, path);
+			mygraph.aStar(mygraph.nodeArray()[start], mygraph.nodeArray()[goal], visit, path,attemptedpath);
 
 			for (Node* n : path)
 				visit(n);
@@ -360,7 +363,16 @@ int main(int argc, char *argv[])
 			}
 			
 		}
-
+		for (int i = 0; i < attemptedpath.size(); i++)
+		{
+			for (int j = 0; j < NodesCircles.size(); j++)
+			{
+				if (get<0>(attemptedpath[i]->data()) == NodesCircles[j].getName())
+				{
+					NodesCircles[j].setAttemptedPath(true);
+				}
+			}
+		}
 	
 		//draw frame items
 

@@ -20,6 +20,7 @@ public:
 	void setStart(bool boolean);
 	void setGoal(bool boolean);
 	void setPath(bool boolean);
+	void setAttemptedPath(bool boolean);
 	sf::CircleShape getCircle();
 	bool getStart();
 	bool getGoal();

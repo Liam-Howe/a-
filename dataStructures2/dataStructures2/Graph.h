@@ -72,7 +72,7 @@ public:
     void breadthFirst( Node* pNode, void (*pProcess)(Node*) );
 	void adaptedBreadthFirst( Node* pCurrent, Node* pGoal );
 	void ucs(Node* pStart, Node* pDest, void(*pVisitFunc)(Node*),std::vector<Node *>& path);
-	void aStar(Node* pStart, Node* pDest, void(*pProcess)(Node*), std::vector<Node *>& path);
+	void aStar(Node* pStart, Node* pDest, void(*pProcess)(Node*), std::vector<Node *>& path, std::vector<Node *>& attemptedpath);
 };
 
 // ----------------------------------------------------------------
@@ -454,7 +454,7 @@ void Graph<NodeType, ArcType>::ucs(Node* pStart, Node* pDest, void(*pVisitFunc)(
 	path.push_back(pStart);
 }
 template<class NodeType, class ArcType>
-void Graph<NodeType, ArcType>::aStar(Node* pStart, Node* pDest, void(*pProcess)(Node*), std::vector<Node *>& path)
+void Graph<NodeType, ArcType>::aStar(Node* pStart, Node* pDest, void(*pProcess)(Node*), std::vector<Node *>& path, std::vector<Node *>& attemptedpath)
 {
 
 	priority_queue<Node *, vector<Node*>, NodeSearchCostComparer> pq;
@@ -502,6 +502,7 @@ void Graph<NodeType, ArcType>::aStar(Node* pStart, Node* pDest, void(*pProcess)(
 					//push the node
 					pq.push((*iter).node());
 					(*iter).node()->setMarked(true);
+					attemptedpath.push_back((*iter).node());
 				}
 			}
 		}
