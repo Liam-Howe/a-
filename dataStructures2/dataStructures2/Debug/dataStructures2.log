@@ -1,29 +1,33 @@
-﻿Build started 16/02/2016 16:10:16.
+﻿Build started 16/02/2016 21:49:47.
      1>Project "C:\Users\Josh\Desktop\a-\dataStructures2\dataStructures2\dataStructures2.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\SFML-2.3.2\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\dataStructures2.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
          main.cpp
-     1>c:\users\josh\desktop\a-\datastructures2\datastructures2\main.cpp(231): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\josh\desktop\a-\datastructures2\datastructures2\main.cpp(259): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\josh\desktop\a-\datastructures2\datastructures2\main.cpp(261): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\josh\desktop\a-\datastructures2\datastructures2\main.cpp(276): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\josh\desktop\a-\datastructures2\datastructures2\main.cpp(281): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\josh\desktop\a-\datastructures2\datastructures2\main.cpp(94): warning C4101: 'gn' : unreferenced local variable
-     1>c:\users\josh\desktop\a-\datastructures2\datastructures2\main.cpp(94): warning C4101: 'hn' : unreferenced local variable
-     1>c:\users\josh\desktop\a-\datastructures2\datastructures2\main.cpp(211): warning C4101: 'gn' : unreferenced local variable
-     1>c:\users\josh\desktop\a-\datastructures2\datastructures2\main.cpp(211): warning C4101: 'hn' : unreferenced local variable
+     1>c:\users\josh\desktop\a-\datastructures2\datastructures2\main.cpp(257): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\josh\desktop\a-\datastructures2\datastructures2\main.cpp(292): warning C4244: 'initializing' : conversion from 'const float' to 'int', possible loss of data
+     1>c:\users\josh\desktop\a-\datastructures2\datastructures2\main.cpp(312): warning C4244: 'initializing' : conversion from 'const float' to 'int', possible loss of data
+     1>c:\users\josh\desktop\a-\datastructures2\datastructures2\main.cpp(335): warning C4244: 'initializing' : conversion from 'const float' to 'int', possible loss of data
+     1>c:\users\josh\desktop\a-\datastructures2\datastructures2\main.cpp(358): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\josh\desktop\a-\datastructures2\datastructures2\main.cpp(360): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\josh\desktop\a-\datastructures2\datastructures2\main.cpp(369): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\josh\desktop\a-\datastructures2\datastructures2\main.cpp(371): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\josh\desktop\a-\datastructures2\datastructures2\main.cpp(382): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\josh\desktop\a-\datastructures2\datastructures2\main.cpp(387): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\josh\desktop\a-\datastructures2\datastructures2\main.cpp(422): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\josh\desktop\a-\datastructures2\datastructures2\main.cpp(123): warning C4101: 'gn' : unreferenced local variable
+     1>c:\users\josh\desktop\a-\datastructures2\datastructures2\main.cpp(123): warning C4101: 'hn' : unreferenced local variable
      1>c:\users\josh\desktop\a-\datastructures2\datastructures2\graph.h(491): warning C4244: 'initializing' : conversion from 'const float' to 'int', possible loss of data
-                 c:\users\josh\desktop\a-\datastructures2\datastructures2\graph.h(457) : while compiling class template member function 'void Graph<std::tuple<std::string,float,float,float,float>,int>::aStar(GraphNode<std::tuple<std::string,float,float,float,float>,int> *,GraphNode<std::tuple<std::string,float,float,float,float>,int> *,void (__cdecl *)(GraphNode<std::tuple<std::string,float,float,float,float>,int> *),std::vector<Node *,std::allocator<_Ty>> &)'
+                 c:\users\josh\desktop\a-\datastructures2\datastructures2\graph.h(458) : while compiling class template member function 'void Graph<std::tuple<std::string,float,float,float,float>,int>::aStar(GraphNode<std::tuple<std::string,float,float,float,float>,int> *,GraphNode<std::tuple<std::string,float,float,float,float>,int> *,void (__cdecl *)(GraphNode<std::tuple<std::string,float,float,float,float>,int> *),std::vector<Node *,std::allocator<_Ty>> &,std::vector<_Ty,std::allocator<_Ty>> &)'
                  with
                  [
                      _Ty=Node *
                  ]
-                 c:\users\josh\desktop\a-\datastructures2\datastructures2\main.cpp(251) : see reference to function template instantiation 'void Graph<std::tuple<std::string,float,float,float,float>,int>::aStar(GraphNode<std::tuple<std::string,float,float,float,float>,int> *,GraphNode<std::tuple<std::string,float,float,float,float>,int> *,void (__cdecl *)(GraphNode<std::tuple<std::string,float,float,float,float>,int> *),std::vector<Node *,std::allocator<_Ty>> &)' being compiled
+                 c:\users\josh\desktop\a-\datastructures2\datastructures2\main.cpp(278) : see reference to function template instantiation 'void Graph<std::tuple<std::string,float,float,float,float>,int>::aStar(GraphNode<std::tuple<std::string,float,float,float,float>,int> *,GraphNode<std::tuple<std::string,float,float,float,float>,int> *,void (__cdecl *)(GraphNode<std::tuple<std::string,float,float,float,float>,int> *),std::vector<Node *,std::allocator<_Ty>> &,std::vector<_Ty,std::allocator<_Ty>> &)' being compiled
                  with
                  [
                      _Ty=Node *
                  ]
-                 c:\users\josh\desktop\a-\datastructures2\datastructures2\main.cpp(90) : see reference to class template instantiation 'Graph<std::tuple<std::string,float,float,float,float>,int>' being compiled
+                 c:\users\josh\desktop\a-\datastructures2\datastructures2\main.cpp(119) : see reference to class template instantiation 'Graph<std::tuple<std::string,float,float,float,float>,int>' being compiled
      1>c:\users\josh\desktop\a-\datastructures2\datastructures2\graph.h(492): warning C4244: 'initializing' : conversion from 'const float' to 'int', possible loss of data
      1>c:\users\josh\desktop\a-\datastructures2\datastructures2\graph.h(494): warning C4244: 'initializing' : conversion from 'const float' to 'int', possible loss of data
      1>c:\program files (x86)\microsoft visual studio 12.0\vc\include\tuple(80): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
@@ -53,12 +57,12 @@
                      _Ty=int
          ,            _This2=int
                  ]
-                 c:\users\josh\desktop\a-\datastructures2\datastructures2\main.cpp(99) : see reference to function template instantiation 'std::tuple<std::string,float,float,float,float>::tuple<std::string&,int,int,int&,int&,std::_Tuple_enable<std::tuple<>,std::tuple<>>::type>(_This2,int &&,int &&,int &,int &)' being compiled
+                 c:\users\josh\desktop\a-\datastructures2\datastructures2\main.cpp(128) : see reference to function template instantiation 'std::tuple<std::string,float,float,float,float>::tuple<std::string&,int,int,int&,int&,std::_Tuple_enable<std::tuple<>,std::tuple<>>::type>(_This2,int &&,int &&,int &,int &)' being compiled
                  with
                  [
                      _This2=std::string &
                  ]
-                 c:\users\josh\desktop\a-\datastructures2\datastructures2\main.cpp(99) : see reference to function template instantiation 'std::tuple<std::string,float,float,float,float>::tuple<std::string&,int,int,int&,int&,std::_Tuple_enable<std::tuple<>,std::tuple<>>::type>(_This2,int &&,int &&,int &,int &)' being compiled
+                 c:\users\josh\desktop\a-\datastructures2\datastructures2\main.cpp(128) : see reference to function template instantiation 'std::tuple<std::string,float,float,float,float>::tuple<std::string&,int,int,int&,int&,std::_Tuple_enable<std::tuple<>,std::tuple<>>::type>(_This2,int &&,int &&,int &,int &)' being compiled
                  with
                  [
                      _This2=std::string &
@@ -85,7 +89,7 @@
                  c:\users\josh\desktop\a-\datastructures2\datastructures2\graph.h(54) : while compiling class template member function 'bool Graph<std::tuple<std::string,float,float,float,float>,int>::NodeSearchCostComparer::operator ()(GraphNode<std::tuple<std::string,float,float,float,float>,int> *,GraphNode<std::tuple<std::string,float,float,float,float>,int> *)'
                  c:\program files (x86)\microsoft visual studio 12.0\vc\include\xutility(521) : see reference to function template instantiation 'bool Graph<std::tuple<std::string,float,float,float,float>,int>::NodeSearchCostComparer::operator ()(GraphNode<std::tuple<std::string,float,float,float,float>,int> *,GraphNode<std::tuple<std::string,float,float,float,float>,int> *)' being compiled
                  c:\program files (x86)\microsoft visual studio 12.0\vc\include\queue(438) : see reference to class template instantiation 'Graph<std::tuple<std::string,float,float,float,float>,int>::NodeSearchCostComparer' being compiled
-                 c:\users\josh\desktop\a-\datastructures2\datastructures2\graph.h(458) : see reference to class template instantiation 'std::priority_queue<GraphNode<std::tuple<std::string,float,float,float,float>,int> *,std::vector<Node *,std::allocator<_Ty>>,Graph<std::tuple<std::string,float,float,float,float>,int>::NodeSearchCostComparer>' being compiled
+                 c:\users\josh\desktop\a-\datastructures2\datastructures2\graph.h(460) : see reference to class template instantiation 'std::priority_queue<GraphNode<std::tuple<std::string,float,float,float,float>,int> *,std::vector<Node *,std::allocator<_Ty>>,Graph<std::tuple<std::string,float,float,float,float>,int>::NodeSearchCostComparer>' being compiled
                  with
                  [
                      _Ty=Node *
@@ -94,9 +98,9 @@
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Josh\Desktop\a-\dataStructures2\Debug\dataStructures2.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\SFML-2.3.2\lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Josh\Desktop\a-\dataStructures2\Debug\dataStructures2.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Josh\Desktop\a-\dataStructures2\Debug\dataStructures2.lib" /MACHINE:X86 Debug\Circle.obj
          Debug\main.obj
          Debug\stdafx.obj
-     1>LINK : fatal error LNK1201: error writing to program database 'C:\Users\Josh\Desktop\a-\dataStructures2\Debug\dataStructures2.pdb'; check for insufficient disk space, invalid path, or insufficient privilege
-     1>Done Building Project "C:\Users\Josh\Desktop\a-\dataStructures2\dataStructures2\dataStructures2.vcxproj" (Build target(s)) -- FAILED.
+         dataStructures2.vcxproj -> C:\Users\Josh\Desktop\a-\dataStructures2\Debug\dataStructures2.exe
+     1>Done Building Project "C:\Users\Josh\Desktop\a-\dataStructures2\dataStructures2\dataStructures2.vcxproj" (Build target(s)).
 
-Build FAILED.
+Build succeeded.
 
-Time Elapsed 00:00:03.62
+Time Elapsed 00:00:03.68

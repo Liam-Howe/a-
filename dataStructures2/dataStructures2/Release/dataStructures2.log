@@ -1,9 +1,45 @@
-﻿Build started 16/02/2016 20:16:06.
-     1>Project "J:\a--master\dataStructures2\dataStructures2\dataStructures2.vcxproj" on node 2 (Build target(s)).
-     1>Link:
-         dataStructures2.vcxproj -> J:\a--master\dataStructures2\Release\dataStructures2.exe
-     1>Done Building Project "J:\a--master\dataStructures2\dataStructures2\dataStructures2.vcxproj" (Build target(s)).
+﻿Build started 16/02/2016 21:40:58.
+     1>Project "C:\Users\Josh\Desktop\a-\dataStructures2\dataStructures2\dataStructures2.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\SFML-2.3.2\include" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Release\dataStructures2.pch" /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
+         main.cpp
+     1>c:\users\josh\desktop\a-\datastructures2\datastructures2\Graph.h(480): error C2059: syntax error : ')'
+     1>c:\users\josh\desktop\a-\datastructures2\datastructures2\Graph.h(482): error C2059: syntax error : 'while'
+     1>c:\users\josh\desktop\a-\datastructures2\datastructures2\Graph.h(483): error C2143: syntax error : missing ';' before '{'
+     1>c:\users\josh\desktop\a-\datastructures2\datastructures2\Graph.h(483): error C2447: '{' : missing function header (old-style formal list?)
+     1>c:\users\josh\desktop\a-\datastructures2\datastructures2\Graph.h(515): error C2059: syntax error : 'for'
+     1>c:\users\josh\desktop\a-\datastructures2\datastructures2\Graph.h(515): error C2143: syntax error : missing ')' before ';'
+     1>c:\users\josh\desktop\a-\datastructures2\datastructures2\Graph.h(515): error C2143: syntax error : missing ';' before '->'
+     1>c:\users\josh\desktop\a-\datastructures2\datastructures2\Graph.h(515): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>c:\users\josh\desktop\a-\datastructures2\datastructures2\Graph.h(515): error C2086: 'int i' : redefinition
+                 c:\users\josh\desktop\a-\datastructures2\datastructures2\Graph.h(515) : see declaration of 'i'
+     1>c:\users\josh\desktop\a-\datastructures2\datastructures2\Graph.h(515): error C2227: left of '->previous' must point to class/struct/union/generic type
+                 type is 'int'
+     1>c:\users\josh\desktop\a-\datastructures2\datastructures2\Graph.h(515): error C2059: syntax error : ')'
+     1>c:\users\josh\desktop\a-\datastructures2\datastructures2\Graph.h(517): error C2065: 'path' : undeclared identifier
+     1>c:\users\josh\desktop\a-\datastructures2\datastructures2\Graph.h(517): error C2228: left of '.push_back' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\josh\desktop\a-\datastructures2\datastructures2\Graph.h(517): error C2143: syntax error : missing '}' before ';'
+     1>c:\users\josh\desktop\a-\datastructures2\datastructures2\Graph.h(518): error C2059: syntax error : '}'
+     1>c:\users\josh\desktop\a-\datastructures2\datastructures2\Graph.h(518): error C2143: syntax error : missing ';' before '}'
+     1>c:\users\josh\desktop\a-\datastructures2\datastructures2\Graph.h(521): error C2059: syntax error : '}'
+     1>c:\users\josh\desktop\a-\datastructures2\datastructures2\Graph.h(521): error C2143: syntax error : missing ';' before '}'
+     1>c:\users\josh\desktop\a-\datastructures2\datastructures2\GraphNode.h(7): error C2899: typename cannot be used outside a template declaration
+     1>c:\users\josh\desktop\a-\datastructures2\datastructures2\GraphNode.h(7): error C2990: 'GraphArc' : non-class template has already been declared as a class template
+                 c:\users\josh\desktop\a-\datastructures2\datastructures2\Graph.h(9) : see declaration of 'GraphArc'
+     1>main.cpp(257): warning C4018: '<' : signed/unsigned mismatch
+     1>main.cpp(292): warning C4244: 'initializing' : conversion from 'const float' to 'int', possible loss of data
+     1>main.cpp(312): warning C4244: 'initializing' : conversion from 'const float' to 'int', possible loss of data
+     1>main.cpp(335): warning C4244: 'initializing' : conversion from 'const float' to 'int', possible loss of data
+     1>main.cpp(358): warning C4018: '<' : signed/unsigned mismatch
+     1>main.cpp(360): warning C4018: '<' : signed/unsigned mismatch
+     1>main.cpp(369): warning C4018: '<' : signed/unsigned mismatch
+     1>main.cpp(371): warning C4018: '<' : signed/unsigned mismatch
+     1>main.cpp(382): warning C4018: '<' : signed/unsigned mismatch
+     1>main.cpp(387): warning C4018: '<' : signed/unsigned mismatch
+     1>main.cpp(422): warning C4018: '<' : signed/unsigned mismatch
+     1>Done Building Project "C:\Users\Josh\Desktop\a-\dataStructures2\dataStructures2\dataStructures2.vcxproj" (Build target(s)) -- FAILED.
 
-Build succeeded.
+Build FAILED.
 
-Time Elapsed 00:00:00.44
+Time Elapsed 00:00:02.38

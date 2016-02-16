@@ -24,7 +24,7 @@ Circle::Circle(sf::CircleShape circle1, bool start, bool goal,std::string name)
 
 void Circle::Update()
 {
-	if (m_start == false && m_goal == false && path == false)
+	if (m_start == false && m_goal == false && path == false && attemptedPath == false)
 	{
 		circle.setFillColor(sf::Color::Yellow);
 	}
@@ -40,7 +40,7 @@ void Circle::Update()
 	{
 		circle.setFillColor(sf::Color::Blue);
 	}
-	 if (path == false && attemptedPath == true)
+	else if ( attemptedPath == true)
 	{
 		circle.setFillColor(sf::Color::White);
 	}

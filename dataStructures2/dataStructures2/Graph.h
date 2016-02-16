@@ -457,56 +457,57 @@ template<class NodeType, class ArcType>
 void Graph<NodeType, ArcType>::aStar(Node* pStart, Node* pDest, void(*pProcess)(Node*), std::vector<Node *>& path, std::vector<Node *>& attemptedpath)
 {
 
-	priority_queue<Node *, vector<Node*>, NodeSearchCostComparer> pq;
+	priority_queue<Node *, vector<Node*>, NodeSearchCostComparer> pq;  //set up priorty queue
+
+	float goalXpos = get<3>(pDest->data());//calculate the goal nodes x position
+	float goalYpos = get<4>(pDest->data());//calculate the goal nodes y position
+
 
 	for (int i = 0; i < m_maxNodes; i++)//Calcukate HN for all nodes
 	{
-		float goalXpos = get<3>(pDest->data());
-		float goalYpos = get<4>(pDest->data());
-		float currXpos = get<3>(nodeArray()[i]->data());
-		float currYpos = get<4>(nodeArray()[i]->data());
-		float distance = sqrt((goalXpos - currXpos)*(goalXpos - currXpos) + (goalYpos - currYpos)*(goalYpos - currYpos));
-		nodeArray()[i]->setData(tuple<string, float, float, float, float>(get<0>(nodeArray()[i]->data()), distance, get<2>(nodeArray()[i]->data()), get<3>(nodeArray()[i]->data()), get<4>(nodeArray()[i]->data())));
-		nodeArray()[i]->setMarked(false);
+
+		float currXpos = get<3>(nodeArray()[i]->data());//get the x positon of the index node
+		float currYpos = get<4>(nodeArray()[i]->data());//get the y positon of the index node
+		float distance = sqrt((goalXpos - currXpos)*(goalXpos - currXpos) + (goalYpos - currYpos)*(goalYpos - currYpos));//calcualtes distance to goal from current ie hn
+		nodeArray()[i]->setData(tuple<string, float, float, float, float>(get<0>(nodeArray()[i]->data()), distance, get<2>(nodeArray()[i]->data()), get<3>(nodeArray()[i]->data()), get<4>(nodeArray()[i]->data())));//sets the nodes hn to the distance
 	}
 
-	pStart->setData(tuple<string, float, float, float, float>(get<0>(pStart->data()), get<1>(pStart->data()), 0, get<3>(pStart->data()), get<4>(pStart->data())));
+	pStart->setData(tuple<string, float, float, float, float>(get<0>(pStart->data()), get<1>(pStart->data()), 0, get<3>(pStart->data()), get<4>(pStart->data())));//initiliese pstarta gn to 0
 
-	pq.push(pStart);
+	pq.push(pStart);//push to queue
 
-	pStart->setMarked(true);
-	//While the queue is not empty AND pq.top() != g
-	//while (pq.size() != 0 && pq.top() != pDest)
+	pStart->setMarked(true);//mark pstart
 
-	while (pq.size() != 0 && pq.top() != pDest)
+
+while (pq.size() != 0 && pq.top() != pDest)	//While the queue is not empty and the goal isnt reached
 	{
 		list<Arc>::const_iterator iter = pq.top()->arcList().begin();
 		list<Arc>::const_iterator endIter = pq.top()->arcList().end();
 
 		for (; iter != endIter; iter++)
 		{
-			if ((*iter).node() != pq.top()->previous() )
+			if ((*iter).node() != pq.top()->previous() )//prevents backtracking
 			{
 				int Hn = get<1>(pq.top()->data());//get hn from top of queue
 				int Gn = get<2>(pq.top()->data()) + (*iter).weight();//get Gn from top of queue
-				int FN = Gn + Hn;
-				int childFn = get<1>((*iter).node()->data()) + get<2>((*iter).node()->data());
+				int FN = Gn + Hn;//calculate fn
+				int childFn = get<1>((*iter).node()->data()) + get<2>((*iter).node()->data());//calculate childs fn
 			
-				if (FN < childFn)
+				if (FN < childFn)//if te fn is smaller than childs fn
 				{
-					(*iter).node()->setPrevious(pq.top());
-					(*iter).node()->setData(tuple<string, float, float, float, float>(get<0>((*iter).node()->data()), get<1>((*iter).node()->data()), Gn, get<3>((*iter).node()->data()), get<4>((*iter).node()->data())));
+					(*iter).node()->setPrevious(pq.top());//set the childs previous
+					(*iter).node()->setData(tuple<string, float, float, float, float>(get<0>((*iter).node()->data()), get<1>((*iter).node()->data()), Gn, get<3>((*iter).node()->data()), get<4>((*iter).node()->data())));//set childs gn to current gn
 				}
-				if ((*iter).node()->marked() == false)
+				if ((*iter).node()->marked() == false)//if not marked 
 				{
 					//push the node
-					pq.push((*iter).node());
-					(*iter).node()->setMarked(true);
-					attemptedpath.push_back((*iter).node());
+					pq.push((*iter).node());//push to queue
+					(*iter).node()->setMarked(true);//mark the node 
+					attemptedpath.push_back((*iter).node());//push to the attempted list. this is used to display witch nodes were attempted
 				}
 			}
 		}
-		pq.pop();
+		pq.pop();//pop off the queueyyy
 	}
  
 

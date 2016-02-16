@@ -49,39 +49,39 @@ void visit(Node * pNode) {
 int main(int argc, char *argv[])
 {
 	// Create the main window 
-	sf::RenderWindow window(sf::VideoMode(800, 600, 32), "SFML First Program");
-	int maxNodes = 30;
-	vector<Circle> NodesCircles;
-	vector<sf::Text>GNS;
-	vector<sf::Text>HNS;
-	vector<sf::Text>FNS;
-	std::vector<Node*> path;
-	std::vector<Node*> attemptedpath;
-	bool startSelected = false;
-	bool goalSelected = false;
-	vector<sf::Text> NodesNames;
-	vector<sf::Text> WeightText;
-	vector<sf::VertexArray> Arcs;
-	bool runAstar = false;
-	sf::Font font;
-	sf::Texture startbuttonTex, resetTex1,resetTex2;
-	sf::Sprite startbuttonSprite,resetSprite;
+	sf::RenderWindow window(sf::VideoMode(800, 600, 32), "SFML First Program");//the render window
+	int maxNodes = 30;//maximum number of nodes
+	vector<Circle> NodesCircles;//vector of circles used to represent the nodes on screen 
+	vector<sf::Text>GNS;//vect of tects used to display each nodes GN
+	vector<sf::Text>HNS;//vect of tects used to display each nodes HN
+	vector<sf::Text>FNS;//vect of tects used to display each nodes FN
+	std::vector<Node*> path;//holds the path taken
+	std::vector<Node*> attemptedpath;//holad all attempted routes
+	bool startSelected = false;//has the origin node been selected
+	bool goalSelected = false;//has the goal node been selected
+	vector<sf::Text> NodesNames;//hold a vector of texts to display nodes names on screen 
+	vector<sf::Text> WeightText;//holds a vector of texts to display the weight of each arc on screen 
+	vector<sf::VertexArray> Arcs;// holds vertex arrays used to draw a line between to nodes. represents the arcs
+	bool runAstar = false;//should the a* be called
+	sf::Font font;//font for displaying sf Text
+	sf::Texture startbuttonTex, resetTex1,resetTex2;//textures to represent the start and reset button on screen 
+	sf::Sprite startbuttonSprite,resetSprite;//sprites for the buttonds
 
-	sf::Text UI1;
+	sf::Text UI1;//used to show what the cyan colour Text represents
 	UI1.setFont(font);
 	UI1.setCharacterSize(20);
 	UI1.setColor(sf::Color::Cyan);
 	UI1.setPosition(sf::Vector2f(650, 50));
 	UI1.setString("GN = CYAN");
 
-	sf::Text UI2;
+	sf::Text UI2;//used to show what White Text  represents
 	UI2.setFont(font);
 	UI2.setCharacterSize(20);
 	UI2.setColor(sf::Color::White);
 	UI2.setPosition(sf::Vector2f(650, 100));
 	UI2.setString("FN = White");
 
-	sf::Text UI3;
+	sf::Text UI3;//used to show what Magenta Text  represents
 	UI3.setFont(font);
 	UI3.setCharacterSize(20);
 	UI3.setColor(sf::Color::Magenta);
@@ -89,20 +89,20 @@ int main(int argc, char *argv[])
 	UI3.setString("HN = MAGENTA");
 	
 
-	startbuttonTex.loadFromFile("startbutton.png");
-	resetTex1.loadFromFile("reset1.png");
+	startbuttonTex.loadFromFile("startbutton.png");//load the texture for start button
+	resetTex1.loadFromFile("reset1.png");//load reset button texture
 	resetTex2.loadFromFile("reset2.png");
-	resetSprite.setTexture(resetTex1);
-	resetSprite.setPosition(sf::Vector2f(300, 500));
+	resetSprite.setTexture(resetTex1);//sets the sprite texture to that witch was loaded
+	resetSprite.setPosition(sf::Vector2f(300, 500));//sets sprites position
 
 	startbuttonSprite.setTexture(startbuttonTex);
 	startbuttonSprite.setTextureRect(sf::IntRect(0, 0, 201, 71));
 	startbuttonSprite.setPosition(sf::Vector2f(100, 500));
 	font.loadFromFile("C:\\Windows\\Fonts\\GARA.TTF");
 
-	sf::Text startText;
+	sf::Text startText;//used for displaying witch number node was selected for origin 
 	startText.setPosition(sf::Vector2f(650, 200));
-	sf::Text goalText;
+	sf::Text goalText;//used for displaying witch number node was selected for goal 
 	goalText.setPosition(sf::Vector2f(650, 250));
 
 	startText.setFont(font);
@@ -116,7 +116,7 @@ int main(int argc, char *argv[])
 	goalText.setColor(sf::Color::White);
 
 
-	Graph<tuple<string, float, float, float, float>, int> mygraph(maxNodes);
+	Graph<tuple<string, float, float, float, float>, int> mygraph(maxNodes);//The Graph. takes in a tuple contaings <name,hn,gn,xpositiom,yposition>
 	string c;
 	int i = 0;
 	ifstream myfile;
@@ -138,52 +138,54 @@ int main(int argc, char *argv[])
 	while ( myfile >> from >> to >> weight ) {
 	mygraph.addArc(from, to, weight);
 
-
+	//////////////////////////////////////////////////////////
 	sf::VertexArray lines(sf::LinesStrip, 2);
 	lines[0].position = sf::Vector2f(get<3>(mygraph.nodeArray()[from]->data()), get<4>(mygraph.nodeArray()[from]->data())) + sf::Vector2f(50, 50);
 	lines[0].color =sf::Color::Yellow;
 	lines[1].position = sf::Vector2f(get<3>(mygraph.nodeArray()[to]->data()), get<4>(mygraph.nodeArray()[to]->data())) + sf::Vector2f(50, 50);
 	lines[1].color = sf::Color::Yellow;
+	//////////////////////////////////////////////////////////Gets the positions of the nodes and draws a line between 2 of them
 
-	sf::Text arcWeight;
+	sf::Text arcWeight;//used to show the arcs weight on screen 
 	arcWeight.setFont(font);
 	arcWeight.setStyle(sf::Text::Bold);
 	arcWeight.setCharacterSize(20);
 	arcWeight.setColor(sf::Color::Red);
 	arcWeight.setString(std::to_string(weight));
-	arcWeight.setOrigin(arcWeight.getGlobalBounds().width / 2, arcWeight.getGlobalBounds().width / 2);
+	arcWeight.setOrigin(arcWeight.getGlobalBounds().width / 2, arcWeight.getGlobalBounds().width / 2);//for drawing
 	arcWeight.setPosition(sf::Vector2f((lines[1].position.x + lines[0].position.x) / 2, (lines[1].position.y + lines[0].position.y) / 2));
 
-	WeightText.push_back(arcWeight);
-	Arcs.push_back(lines);
+	WeightText.push_back(arcWeight);//pushes the weight into a list for drawing later
+	Arcs.push_back(lines);//pushes the arcs into the arc list for drawing later
 	}
 	myfile.close();
 
-	for (int i = 0; i < maxNodes; i++)
+	for (int i = 0; i < maxNodes; i++)//loop through all nodes
 	{
-		sf::CircleShape temp(20);
-		temp.setFillColor(sf::Color::Yellow);
-		temp.setOrigin(20, 20);
+		sf::CircleShape temp(20);//create a circle of radius 20
+		temp.setFillColor(sf::Color::Yellow);//set is colour to yellow
+		temp.setOrigin(20, 20);//set its origin to the center
 		
-		temp.setPosition(sf::Vector2f(get<3>(mygraph.nodeArray()[i]->data()), get<4>(mygraph.nodeArray()[i]->data())) + sf::Vector2f(50, 50));
-		Circle Tempcircle(temp, false, false, get<0>(mygraph.nodeArray()[i]->data()));
-		NodesCircles.push_back(Tempcircle);
+		temp.setPosition(sf::Vector2f(get<3>(mygraph.nodeArray()[i]->data()), get<4>(mygraph.nodeArray()[i]->data())) + sf::Vector2f(50, 50));//get the nodes position and set the circle to it. add 50,50, so that nodes dont draw in top left corner
+		Circle Tempcircle(temp, false, false, get<0>(mygraph.nodeArray()[i]->data()));//create a Circle object and pass in the sf circle shape. and make sure that is start bool and goal bool are initilied to false
+		NodesCircles.push_back(Tempcircle);//push the circle into the list
 
-		sf::Text nodename;
+		sf::Text nodename;//
 		nodename.setFont(font);
 		nodename.setStyle(sf::Text::Bold);
 		nodename.setCharacterSize(20);
 		nodename.setColor(sf::Color::Black);
-		nodename.setString(get<0>(mygraph.nodeArray()[i]->data()));
-		nodename.setPosition(temp.getPosition() - sf::Vector2f(5,15));
-		NodesNames.push_back(nodename);
+		nodename.setString(get<0>(mygraph.nodeArray()[i]->data()));//gets the nodes name
+		nodename.setOrigin(nodename.getGlobalBounds().width / 2, nodename.getGlobalBounds().height / 2);
+		nodename.setPosition(temp.getPosition());
+		NodesNames.push_back(nodename);//pushes the name to the nodes name vector to draw later
 
 	}
 
 
 	
-	int start = 0;
-	int goal = 0;
+	int start = 0;//the start node
+	int goal = 0;//the origin node
 
 
 	// Start game loop 
@@ -203,10 +205,10 @@ int main(int argc, char *argv[])
 
 
 		}
+
 		sf::Vector2i Mouseposition = sf::Mouse::getPosition(window) ;//get the mouses position
-	
-		startText.setString("Start = " + std::to_string(start));
-		goalText.setString("End = " + std::to_string(goal));
+		startText.setString("Start = " + std::to_string(start));//updates the start text to display the current start node
+		goalText.setString("End = " + std::to_string(goal));//update the goal node to display the current goal node
 
 		if (Mouseposition.x > startbuttonSprite.getGlobalBounds().left
 			&& Mouseposition.x < (startbuttonSprite.getGlobalBounds().left + startbuttonSprite.getGlobalBounds().width)
@@ -216,14 +218,14 @@ int main(int argc, char *argv[])
 		
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && startSelected == true && goalSelected == true)// if the mouse is clicked and both the origin and strt node are selected
 			{
-				GNS.clear();
-				HNS.clear();
-				FNS.clear();
-				runAstar = true;
-				startSelected = false;
-				goalSelected = false;
-				NodesCircles[start].setStart(false);
-				NodesCircles[goal].setGoal(false);
+				GNS.clear();//clear the gns list
+				HNS.clear();//clear the hns list
+				FNS.clear();//clear the fns list
+				runAstar = true;//reun the astar algoritihm
+				startSelected = false;//unselect start
+				goalSelected = false;//unselect goal 
+				NodesCircles[start].setStart(false);//reset the start circle so it is nolonger start
+				NodesCircles[goal].setGoal(false);//reset the goal circle so it is no linger goal
 			}
 		}
 
@@ -243,13 +245,15 @@ int main(int argc, char *argv[])
 				HNS.clear();
 				FNS.clear();
 				path.clear();
-				
-				mygraph.clearMarks();
-				mygraph.reset();
-				goal = 0;
-				start = 0;
-				startSelected = false;
-				goalSelected = false;
+				attemptedpath.clear();
+				//clear the lists
+				///////////////////////////
+				mygraph.clearMarks();//clear all the marked nodes so thy are no longer marked
+				mygraph.reset();//calls a reset method that resets the previous nodes and sets gn and hn back to 9999
+				goal = 0;//reset goal 
+				start = 0;//reset start
+				startSelected = false;//reset 
+				goalSelected = false;//reset
 
 				for (int i = 0; i < NodesCircles.size(); i++)
 				{
@@ -258,7 +262,7 @@ int main(int argc, char *argv[])
 					NodesCircles[i].setPath(false);
 					NodesCircles[i].setAttemptedPath(false);
 					NodesCircles[i].setStart(false);
-				}
+				}//Reset all circles back to scratch
 				
 		
 			}
@@ -267,12 +271,12 @@ int main(int argc, char *argv[])
 
 
 
-		if (runAstar)
+		if (runAstar)//when the a star is called
 		{	
 			cout << '\n' << "A *: " << endl;
 
 			path.clear();
-			mygraph.aStar(mygraph.nodeArray()[start], mygraph.nodeArray()[goal], visit, path,attemptedpath);
+			mygraph.aStar(mygraph.nodeArray()[start], mygraph.nodeArray()[goal], visit, path,attemptedpath);//reuns the A Star
 
 			for (Node* n : path)
 				visit(n);
@@ -280,13 +284,13 @@ int main(int argc, char *argv[])
 
 			for (int i = 0; i < maxNodes; i++)
 			{
-				//	get<2>(mygraph.nodeArray()[i]->data())
+				
 				sf::Text GN;
 				GN.setFont(font);
 				GN.setCharacterSize(15);
 				GN.setOrigin(GN.getGlobalBounds().width / 2, GN.getGlobalBounds().height / 2);
 				GN.setColor(sf::Color::Cyan);
-				int gn = get<2>(mygraph.nodeArray()[i]->data());
+				int gn = get<2>(mygraph.nodeArray()[i]->data());//gets the Gn value 
 				if (get<2>(mygraph.nodeArray()[i]->data()) >= 9999)
 				{
 					GN.setString("-");
@@ -294,13 +298,14 @@ int main(int argc, char *argv[])
 				else
 				{
 
-					GN.setString(std::to_string(gn));
+					GN.setString(std::to_string(gn));//sets the texts string to be gn value
 				}
 
-				GN.setPosition(sf::Vector2f(get<3>(mygraph.nodeArray()[i]->data()) + 25, get<4>(mygraph.nodeArray()[i]->data()) + 15));
+				GN.setPosition(sf::Vector2f(get<3>(mygraph.nodeArray()[i]->data()) + 25, get<4>(mygraph.nodeArray()[i]->data()) + 15));//sets it positon to top left corner of the node
 
-				GNS.push_back(GN);
+				GNS.push_back(GN);//pushes into list for drawing later
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				sf::Text HN;
 				HN.setFont(font);
 				HN.setCharacterSize(15);
@@ -314,22 +319,22 @@ int main(int argc, char *argv[])
 				else
 				{
 
-					HN.setString(std::to_string(hn));
+					HN.setString(std::to_string(hn));//sets the hn string to the hn value
 				}
 
-				HN.setPosition(sf::Vector2f(get<3>(mygraph.nodeArray()[i]->data()) + 65, get<4>(mygraph.nodeArray()[i]->data()) + 15));
+				HN.setPosition(sf::Vector2f(get<3>(mygraph.nodeArray()[i]->data()) + 65, get<4>(mygraph.nodeArray()[i]->data()) + 15));//sets the hn position to top right of node
 
-				HNS.push_back(HN);
-
-
+				HNS.push_back(HN);//pushes it into list for drawing later
 
 
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				sf::Text FN;
 				FN.setFont(font);
 				FN.setCharacterSize(15);
 				FN.setOrigin(FN.getGlobalBounds().width / 2, FN.getGlobalBounds().height / 2);
 				FN.setColor(sf::Color::White);
-				int fn = get<2>(mygraph.nodeArray()[i]->data()) + get<1>(mygraph.nodeArray()[i]->data());
+				int fn = get<2>(mygraph.nodeArray()[i]->data()) + get<1>(mygraph.nodeArray()[i]->data());//value = gn + hn
 				if (fn >= 9999)
 				{
 					FN.setString("-");
@@ -337,16 +342,18 @@ int main(int argc, char *argv[])
 				else
 				{
 
-					FN.setString(std::to_string(fn));
+					FN.setString(std::to_string(fn));//set string to fn value
 				}
 
-				FN.setPosition(sf::Vector2f(get<3>(mygraph.nodeArray()[i]->data()) + 25, get<4>(mygraph.nodeArray()[i]->data()) + 65));
+				FN.setPosition(sf::Vector2f(get<3>(mygraph.nodeArray()[i]->data()) + 25, get<4>(mygraph.nodeArray()[i]->data()) + 65));//set position to lower left of node
 
-				FNS.push_back(FN);
+				FNS.push_back(FN);//push into list for drawing later
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			}
 
 
-			runAstar = false;
+			runAstar = false;//sets back to false to stop repeat call
 		}
 
 		// prepare frame
@@ -358,7 +365,7 @@ int main(int argc, char *argv[])
 			{
 				if (get<0>(path[i]->data()) == NodesCircles[j].getName())
 				{
-					NodesCircles[j].setPath(true);
+					NodesCircles[j].setPath(true);//this will make the circles in path turn blue
 				}
 			}
 			
@@ -369,7 +376,7 @@ int main(int argc, char *argv[])
 			{
 				if (get<0>(attemptedpath[i]->data()) == NodesCircles[j].getName())
 				{
-					NodesCircles[j].setAttemptedPath(true);
+					NodesCircles[j].setAttemptedPath(true);//this will make all attempted circles turn whit
 				}
 			}
 		}
@@ -378,30 +385,30 @@ int main(int argc, char *argv[])
 
 		for (int i = 0; i < Arcs.size(); i++)
 		{
-			window.draw(Arcs[i]);
-			window.draw(WeightText[i]);
+			window.draw(Arcs[i]);//draws all arcs 
+			window.draw(WeightText[i]);//draws all arc weights
 		}
 		for (int i = 0; i < NodesCircles.size(); i++)
 		{
-			NodesCircles[i].Update();
+			NodesCircles[i].Update();//update all circles 
 
 			float distanceX = (Mouseposition.x) - (NodesCircles[i].getCircle().getPosition().x);
 			float distanceY = (Mouseposition.y) - (NodesCircles[i].getCircle().getPosition().y);
-			float distance = sqrt((distanceX * distanceX) + (distanceY * distanceY));
+			float distance = sqrt((distanceX * distanceX) + (distanceY * distanceY));//gets mouse distance to circle center
 
-			if (distance < (NodesCircles[i].getCircle().getRadius()) && sf::Mouse::isButtonPressed(sf::Mouse::Left) && startSelected == false && NodesCircles[i].getGoal()==false)
+			if (distance < (NodesCircles[i].getCircle().getRadius()) && sf::Mouse::isButtonPressed(sf::Mouse::Left) && startSelected == false && NodesCircles[i].getGoal()==false)//chekes if mouse is in circle an left mouse pressed
 			{
 			
 				NodesCircles[i].setStart(true);
-				start = i;
+				start = i;//sets this node to origin
 				startSelected = true;
 
 			}
-			if (distance < (NodesCircles[i].getCircle().getRadius()) && sf::Mouse::isButtonPressed(sf::Mouse::Right) && goalSelected == false && NodesCircles[i].getStart() == false)
+			if (distance < (NodesCircles[i].getCircle().getRadius()) && sf::Mouse::isButtonPressed(sf::Mouse::Right) && goalSelected == false && NodesCircles[i].getStart() == false)//chekes if mouse is in circle an Right mouse pressed
 			{
 
 				NodesCircles[i].setGoal(true);
-				goal = i;
+				goal = i;//sets this node to goal
 				goalSelected = true;
 
 			}
